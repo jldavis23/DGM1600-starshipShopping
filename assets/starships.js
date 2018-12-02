@@ -512,7 +512,7 @@ export const starships = [
         "model": "Imperial I-class Star Destroyer",
         "manufacturer": "Kuat Drive Yards",
         "cost_in_credits": "150000000",
-        "length": "1,600",
+        "length": "1600",
         "max_atmosphering_speed": "975",
         "crew": "47060",
         "passengers": "0",

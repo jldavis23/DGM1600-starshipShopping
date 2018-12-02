@@ -3,6 +3,7 @@ import { starships } from './assets/starships.js'
 let shipsWithCredits = starships.filter(starship => starship.cost_in_credits !== "unknown")
 let starshipListingsContainer = document.querySelector('#starship-listings-container')
 let propertiesOrder = ['model', 'manufacturer', 'length', 'max_atmosphering_speed', 'crew', 'passengers', 'cargo_capacity', 'consumables', 'hyperdrive_rating', 'MGLT', 'starship_class']
+let currentArray = shipsWithCredits.slice(0)
 
 // MAIN FUNCTIONS -------------------------------------------------------------
 
@@ -18,6 +19,14 @@ shipsWithCredits.forEach(starship => {
         starship.id = `${starship.url[31]}${starship.url[32]}`
     }
 })
+
+let removeListings = () => {
+    let removeDiv = document.querySelector("#starship-listings-container");
+    while (removeDiv.firstChild) {
+        removeDiv.removeChild(removeDiv.firstChild);
+    }
+    // buttonList.forEach(button => button.classList.remove('current-button'))
+}
 
 let createListing = (starship) => {
     let starshipListing = document.createElement('div')
@@ -84,3 +93,50 @@ shipsWithCredits.forEach(starship => {createListing(starship)})
 let credits = 500000
 let creditDisplay = document.querySelector('#credits')
 creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
+
+// SORTING -------------------------------------------------------------
+
+let sortNone = document.querySelector('#sort-none')
+let sortByNone = () => {
+    removeListings()
+    shipsWithCredits.forEach(starship => {
+        createListing(starship)
+    })
+}
+sortNone.addEventListener("click", sortByNone)
+
+let sortCost = document.querySelector('#sort-cost')
+let sortByCost = () => {
+    removeListings()
+    currentArray.sort(function(a, b) {
+        return a.cost_in_credits - b.cost_in_credits
+    })
+    currentArray.forEach(starship => {
+        createListing(starship)
+    })
+}
+sortCost.addEventListener("click", sortByCost)
+
+let sortSize = document.querySelector('#sort-size')
+let sortBySize = () => {
+    removeListings() 
+    currentArray.sort(function(a, b) {
+        return a.length - b.length
+    })
+    currentArray.forEach(starship => {
+        createListing(starship)
+    })
+}
+sortSize.addEventListener("click", sortBySize)
+
+let sortSpeed = document.querySelector('#sort-speed')
+let sortBySpeed = () => {
+    removeListings()
+    currentArray.sort(function(a, b) {
+        return a.hyperdrive_rating - b.hyperdrive_rating
+    })
+    currentArray.forEach(starship => {
+        createListing(starship)
+    })
+}
+sortSpeed.addEventListener("click", sortBySpeed)

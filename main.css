@@ -42,7 +42,6 @@ header h2 {
 #starship-listings-container, #sidebar, #sort-bar, footer {
     background-color: #f7f7f7;
     padding: 10px;
-    /* box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); */
 }
 
 #sort-bar {
@@ -50,6 +49,50 @@ header h2 {
     width: 95%;
     margin: 10px auto 0px;
     color: #fff;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#sort-bar h1 {
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+#sort-bar form label input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #f1f1f1;
+    height: 20px;
+    width: 20px;
+    outline: none;
+    border-radius: 100%;
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    margin-right: 4px;
+    display: inline-block;
+    /* display: inline-block;
+    position: relative;
+    background-color: #f1f1f1;
+    color: #666;
+    top: 3px;
+    height: 30px;
+    width: 30px;
+    border: 0;
+    border-radius: 50px;
+    cursor: pointer;     
+    margin-right: 4px;
+    outline: none; */
+}
+
+#sort-bar form label input:checked {
+    background-color: #ffe81a;
+}
+
+#sort-bar form label {
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 main {
