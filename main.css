@@ -63,6 +63,7 @@ main {
 footer {
     background-color: #696969;
     margin-top: 10px;
+    text-align: center;
 }
 
 /* STARSHIP LISTINGS ------------------------------- */
@@ -79,7 +80,7 @@ img {
 
 .starship-listing {
     position: relative;
-    margin: 5px;
+    margin: 10px;
     width: 400px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     background-color: #dadada;
@@ -163,4 +164,14 @@ img {
 
 .starship-listing:hover .front {
     opacity: 0.5;
+}
+
+/* CREDITS (money) ------------------------------- */
+
+#credits {
+    position: fixed;
+    bottom: 0;
+    background-color: #baa771;
+    padding: 5px;
+    border-radius: 3px;
 }
