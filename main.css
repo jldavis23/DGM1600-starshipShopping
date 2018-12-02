@@ -1,11 +1,11 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Exo', sans-serif;
     box-sizing: border-box;
 }
 
 body {
+    font-family: 'Exo', sans-serif;
     background-color: #252525;
 }
 
@@ -31,11 +31,24 @@ header h2 {
     color: #aaa;
 }
 
-/* MAIN ------------------------------- */
+/* SITE LAYOUT ------------------------------- */
+
+#inventory-heading {
+    width: 95%;
+    margin: 5px auto;
+    color: #fff;
+}
+
+#starship-listings-container, #sidebar, #sort-bar {
+    background-color: #f7f7f7;
+    padding: 10px;
+}
 
 #sort-bar {
+    background-color: #696969;
     width: 95%;
-    margin: 10px auto;
+    margin: 10px auto 0px;
+    color: #fff;
 }
 
 main {
@@ -46,10 +59,7 @@ main {
     margin: 0 auto;
 }
 
-#starship-listings-container, #sidebar, #sort-bar {
-    background-color: #f7f7f7;
-    padding: 10px;
-}
+/* STARSHIP LISTINGS ------------------------------- */
 
 img {
     width: 400px;
@@ -62,5 +72,89 @@ img {
 }
 
 .starship-listing {
+    position: relative;
     margin: 5px;
+    width: 400px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color: #dadada;
+}
+
+.card-face {
+    transition: 0.5s;
+}
+
+.front {
+    opacity: 1;
+}
+
+.front figcaption {
+    padding: 10px;
+}
+
+.front figcaption h1 {
+    font-size: 25px;
+    font-variant-caps: all-small-caps;
+}
+
+.front figcaption h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 400;
+}
+
+.front figcaption img {
+    width: 10px;
+    height: 15px;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    font-family: 'Chakra Petch', sans-serif;
+    padding: 10px;
+    background-color: #baa771; 
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.back ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.137);
+    margin: 2px 0;
+    font-size: 13px;
+}
+
+.add-to-cart-button {
+    margin: 2px auto 0;
+    padding: 10px;
+    border-radius: 3px;
+    font-family: 'Exo', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.add-to-cart-button:hover {
+    cursor: pointer;
+}
+
+.add-to-cart-button:focus {
+    outline: none;
+}
+
+.starship-listing:hover {
+    cursor: default;
+}
+
+.starship-listing:hover .back {
+    opacity: 0.9;
+}
+
+.starship-listing:hover .front {
+    opacity: 0.5;
 }

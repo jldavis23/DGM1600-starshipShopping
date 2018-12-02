@@ -102,7 +102,7 @@ export const starships = [
         "manufacturer": "Koensayr Manufacturing",
         "cost_in_credits": "134999",
         "length": "14",
-        "max_atmosphering_speed": "1000km",
+        "max_atmosphering_speed": "1000",
         "crew": "2",
         "passengers": "0",
         "cargo_capacity": "110",
