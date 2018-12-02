@@ -26,4 +26,4 @@ let createListing = (starship) => {
     fig.appendChild(cap)
 }
 
-// shipsWithCredits.forEach(starship => {createListing(starship)})
+shipsWithCredits.forEach(starship => {createListing(starship)})

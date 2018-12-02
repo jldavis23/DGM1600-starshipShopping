@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Exo', sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -31,6 +32,24 @@ header h2 {
 }
 
 /* MAIN ------------------------------- */
+
+#sort-bar {
+    width: 95%;
+    margin: 10px auto;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 10px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+#starship-listings-container, #sidebar, #sort-bar {
+    background-color: #f7f7f7;
+    padding: 10px;
+}
 
 img {
     width: 400px;
