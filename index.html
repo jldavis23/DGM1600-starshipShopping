@@ -17,7 +17,7 @@
     <nav>
         <ul>
             <li><a href="#inventory-heading">Available Inventory</a></li>
-            <li><a href="#sell-starship">Sell Your Starship</a></li>
+            <li><a href="#sell-starships">Sell Your Starship</a></li>
         </ul>
     </nav>
 
@@ -41,21 +41,31 @@
     <main>
         <div id="sidebar">
             <h1>FILTER</h1>
+            <a href="#starship-listings-container"><button id="no-filter">None</button></a>
             <div id="filters-container">
-                <a href="#starship-listings-container"><button id="no-filter">None</button></a>
+                
             </div>
         </div>
 
         <div id="starship-listings-container"></div>
     </main>
 
-    <div id="sell-starship">
+    <div id="sell-starships">
+        <h1>SELL YOUR STARSHIP</h1>
+        <form>
+            <label><span>Name:</span><input class="user-info" id="sell-name"type="text" name="name" value=""></label>
+            
+            <label><span>Model:</span><select class="user-info" id="sell-model"></select></label>
 
-
+            <label><span>Cost in Credits:</span><input class="user-info" id="sell-cost" type="text" name="cost" value=""></label>
+        </form>
+        <button id="submit">Put Your Starship Up For Sale</button>
     </div>
+
+    <div id="to-top"><a href="#main-heading">Back to top</a></div>
     
     <footer>
-        <p>&copy; Jacey Davis | 2018</p>
+        <p>&copy; Designed and Developed by Jacey Davis | 2018</p>
     </footer>
 
     <div id="credits"></div>

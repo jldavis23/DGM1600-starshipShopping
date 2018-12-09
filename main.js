@@ -26,7 +26,6 @@ let removeListings = () => {
     while (removeDiv.firstChild) {
         removeDiv.removeChild(removeDiv.firstChild);
     }
-    // buttonList.forEach(button => button.classList.remove('current-button'))
 }
 
 let createListing = (starship) => {
@@ -207,6 +206,7 @@ noFilterButton.classList.add('active')
 let filterButtonList = ['no-filter']
 
 const filterShips = (filter, str) => {
+    console.log(currentArray)
     currentArray = shipsWithCredits.filter(starship => starship[filter].includes(str) === true)
     removeListings()
     sortNone.checked = 'checked'
@@ -220,59 +220,65 @@ const filterShips = (filter, str) => {
 
     let button = document.getElementById(str.replace(/\s+/g, '-')) //see comment above
     button.classList.add('active')
+    console.log(currentArray)
 }
 
 //Creates the filter buttons
-filters.forEach(filter => {
-    let div = document.createElement('div')
-    filtersContainer.appendChild(div)
-    let h2 = document.createElement('h2')
-    h2.textContent = filter.replace(/_/g, " ")
-    div.appendChild(h2)
-
-    const createFilters = (filter, str) => {
-        let arr = shipsWithCredits.filter(starship => starship[filter].includes(str) === true)
-
-        let a = document.createElement('a')
-        a.href = "#starship-listings-container"
-        div.appendChild(a)
-
-        let button = document.createElement('button')
-        button.id = `${str.replace(/\s+/g, '-')}`
-        button.textContent = `${str} (${arr.length})`
-        a.appendChild(button)
-        
-        usedFilters.push(str)
-        filterButtonList.push(button.id)
-
-        button.addEventListener('click', function() {filterShips(filter, str)} )
-    }
-
-    let usedFilters = []
-
-    shipsWithCredits.forEach(starship => {
-        if (starship[filter].includes(',') === true) {
-            let first = starship[filter].slice(0, starship[filter].indexOf(','))
-            let second = starship[filter].slice(starship[filter].indexOf(',') + 2)
-
-            if (usedFilters.includes(first)) {
-                if (usedFilters.includes(second)) {
-                    //nothing
+let createFilterButtons = () => {
+    filters.forEach(filter => {
+        let div = document.createElement('div')
+        filtersContainer.appendChild(div)
+        let h2 = document.createElement('h2')
+        h2.textContent = filter.replace(/_/g, " ")
+        div.appendChild(h2)
+    
+        const createFilters = (filter, str) => {
+            let arr = shipsWithCredits.filter(starship => starship[filter].includes(str) === true)
+    
+            let a = document.createElement('a')
+            a.href = "#starship-listings-container"
+            div.appendChild(a)
+    
+            let button = document.createElement('button')
+            button.id = `${str.replace(/\s+/g, '-')}`
+            button.textContent = `${str} (${arr.length})`
+            a.appendChild(button)
+            
+            usedFilters.push(str)
+            filterButtonList.push(button.id)
+    
+            button.addEventListener('click', function() {filterShips(filter, str)} )
+        }
+    
+        let usedFilters = []
+    
+        shipsWithCredits.forEach(starship => {
+            if (starship[filter].includes(',') === true) {
+                let first = starship[filter].slice(0, starship[filter].indexOf(','))
+                let second = starship[filter].slice(starship[filter].indexOf(',') + 2)
+    
+                if (usedFilters.includes(first)) {
+                    if (usedFilters.includes(second)) {
+                        //nothing
+                    } else {
+                        createFilters(filter, second)
+                    }
                 } else {
-                    createFilters(filter, second)
+                    createFilters(filter, first)
                 }
             } else {
-                createFilters(filter, first)
+                if (usedFilters.includes(starship[filter]) === true) {
+                    //nothing
+                } else {
+                    createFilters(filter, starship[filter])
+                }
             }
-        } else {
-            if (usedFilters.includes(starship[filter]) === true) {
-                //nothing
-            } else {
-                createFilters(filter, starship[filter])
-            }
-        }
+        })
     })
-})
+}
+
+createFilterButtons()
+
 
 //When None button is clicked, all filters and sorting reset
 noFilterButton.addEventListener('click', function() {
@@ -287,4 +293,63 @@ noFilterButton.addEventListener('click', function() {
         createListing(starship)
     })
     noFilterButton.classList.add('active')
+})
+
+// SELLING STARSHIPS -------------------------------------------------------------
+let submitButton = document.querySelector('#submit')
+let sellName = document.querySelector('#sell-name')
+let sellModel = document.querySelector('#sell-model')
+let sellCost = document.querySelector('#sell-cost')
+
+//Creates the drop down menu for starship model
+shipsWithCredits.forEach(starship => {
+    let option = document.createElement('option')
+    option.textContent = starship.model
+    sellModel.appendChild(option)
+})
+
+//Starship constructor
+class Starship {
+    constructor(name, model, credits, id, manufacturer, length, max_atmosphering_speed, crew, passengers, cargo_capacity, consumables, hyperdrive_rating, MGLT, starship_class) {
+        this.name = name
+        this.model = model
+        this.cost_in_credits = credits
+        this.id = id
+        this.manufacturer = manufacturer
+        this.length = length
+        this.max_atmosphering_speed = max_atmosphering_speed
+        this.crew = crew
+        this.passengers = passengers
+        this.cargo_capacity = cargo_capacity
+        this.consumables = consumables
+        this.hyperdrive_rating = hyperdrive_rating
+        this.MGLT = MGLT
+        this.starship_class = starship_class
+    }
+}
+
+//Creates a new starship when the button is clicked 
+submitButton.addEventListener('click', () => {
+    let modelStarship = shipsWithCredits.reduce((acc, starship) => {
+        return sellModel.value === starship.model ? starship : acc
+    }, {})
+
+    if (sellName.value === "" || sellCost === "") {
+        alert('Please fill out all the fields')
+    } else {
+        let userStarship = new Starship(sellName.value, sellModel.value, sellCost.value, modelStarship.id, modelStarship.manufacturer, modelStarship['length'], modelStarship.max_atmosphering_speed, modelStarship.crew, modelStarship.passengers, modelStarship.cargo_capacity, modelStarship.consumables, modelStarship.hyperdrive_rating, modelStarship.MGLT, modelStarship.starship_class)
+        sellName.value = ""
+        sellCost.value = ""
+        currentArray.push(userStarship)
+        shipsWithCredits.push(userStarship)
+        removeListings()
+        currentArray.forEach(starship => {
+            createListing(starship)
+        })
+
+        while (filtersContainer.firstChild) {
+            filtersContainer.removeChild(filtersContainer.firstChild);
+        }
+        createFilterButtons()
+    }
 })

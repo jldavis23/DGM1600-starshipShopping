@@ -66,6 +66,7 @@ nav ul li a:hover {
     width: 95%;
     margin: 5px auto;
     color: #fff;
+    text-align: center;
 }
 
 #starship-listings-container, #sidebar, #sort-bar, footer {
@@ -90,6 +91,19 @@ nav ul li a:hover {
         width: 95%;
         margin: 0 auto;
     }
+}
+
+#to-top {
+    text-align: center;
+}
+
+#to-top a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#to-top a:hover {
+    text-decoration: underline;
 }
 
 footer {
@@ -348,6 +362,75 @@ footer {
 
 .starship-listing:hover .front {
     opacity: 0.5;
+}
+
+/* SELL YOUR STARSHIPS ------------------------------- */
+
+#sell-starships {
+    width: 50%;
+    margin: 10 auto;
+    background-color: #313131;
+    
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#sell-starships form {
+    width: 100%;
+}
+
+#sell-starships .user-info {
+    width: 100%;
+    height: 35px;
+    border-radius: 3px;
+    border: 1px solid #aaa;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+
+#sell-starships .user-info:focus {
+    outline: none;
+}
+
+#sell-starships form label {
+    display: block;
+    margin: 8px 0;
+    width: 100%;
+}
+
+#sell-starships form label span {
+    display: block;
+    font-weight: 600;
+    color: #baa771;
+}
+
+#sell-starships #submit {
+    padding: 10px;
+    background-color: #baa771;
+    border: none;
+    box-shadow: 0 0 10px #000;
+    border-radius: 4px;
+    width: 50%;
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#sell-starships #submit:focus {
+    outline: none;
+}
+
+#sell-starships #submit:hover {
+    cursor: pointer;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    background-color: #7c704d;
+    color: #fff;
 }
 
 /* CREDITS (money) ------------------------------- */
