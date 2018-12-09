@@ -99,7 +99,7 @@ creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
 let sortNone = document.querySelector('#sort-none')
 let sortByNone = () => {
     removeListings()
-    shipsWithCredits.forEach(starship => {
+    currentArray.forEach(starship => {
         createListing(starship)
     })
 }
@@ -177,10 +177,16 @@ filters.forEach(filter => {
     div.appendChild(h1)
 
     const createFilters = (filter, str) => {
+        let arr = shipsWithCredits.filter(starship => starship[filter].includes(str) === true)
+
+        let a = document.createElement('a')
+        a.href = "#main-heading"
+        div.appendChild(a)
+
         let button = document.createElement('button')
         button.id = `${str.replace(/\s+/g, '-')}`
-        button.textContent = `${str}`
-        div.appendChild(button)
+        button.textContent = `${str} (${arr.length})`
+        a.appendChild(button)
         
         usedFilters.push(str)
         filterButtonList.push(button.id)
@@ -194,6 +200,7 @@ filters.forEach(filter => {
         if (starship[filter].includes(',') === true) {
             let first = starship[filter].slice(0, starship[filter].indexOf(','))
             let second = starship[filter].slice(starship[filter].indexOf(',') + 2)
+
             if (usedFilters.includes(first)) {
                 if (usedFilters.includes(second)) {
                     //nothing
@@ -213,6 +220,7 @@ filters.forEach(filter => {
     })
 })
 
+//When None button is clicked, all filters and sorting reset
 noFilterButton.addEventListener('click', function() {
     removeListings()
     filterButtonList.forEach(buttonid => {
@@ -225,7 +233,4 @@ noFilterButton.addEventListener('click', function() {
     })
     noFilterButton.classList.add('active')
 })
-
-
-// shipsWithCredits.forEach(ship => {console.log(ship.manufacturer)})
 

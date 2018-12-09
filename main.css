@@ -105,14 +105,32 @@ footer {
 
 /* SIDEBAR/FILTER ------------------------------- */
 
-#sidebar button {
-    display: block;
+#sidebar a {
+    text-decoration: none;
+}
+
+#sidebar a button {
+    /* display: block; */
     background-color: #fff;
     padding: 10px;
+    margin: 5px 5px;
+    /* width: 100%; */
+    text-align: left;
+}
+
+#sidebar a button:hover {
+    cursor: pointer;
+    background-color: #ffe81a;
+    color: #000;
+}
+
+#sidebar a button:focus {
+    outline: none;
 }
 
 #sidebar .active {
-    background-color: #aaa;
+    background-color: #4d4d4d;
+    color: #fff;
 }
 
 
@@ -126,9 +144,11 @@ img {
 #starship-listings-container {
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .starship-listing {
+    flex-basis: 0;
     position: relative;
     margin: 10px;
     width: 400px;
