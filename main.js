@@ -7,6 +7,7 @@ let currentArray = shipsWithCredits.slice(0)
 
 // MAIN FUNCTIONS -------------------------------------------------------------
 
+//Puts commas in a number (I adapted this function from another source)
 let numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -99,6 +100,7 @@ creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
 let sortNone = document.querySelector('#sort-none')
 let sortByNone = () => {
     removeListings()
+    currentArray.sort()
     currentArray.forEach(starship => {
         createListing(starship)
     })
@@ -172,15 +174,15 @@ const filterShips = (filter, str) => {
 filters.forEach(filter => {
     let div = document.createElement('div')
     filtersContainer.appendChild(div)
-    let h1 = document.createElement('h1')
-    h1.textContent = filter
-    div.appendChild(h1)
+    let h2 = document.createElement('h2')
+    h2.textContent = filter.replace(/_/g, " ")
+    div.appendChild(h2)
 
     const createFilters = (filter, str) => {
         let arr = shipsWithCredits.filter(starship => starship[filter].includes(str) === true)
 
         let a = document.createElement('a')
-        a.href = "#main-heading"
+        a.href = "#starship-listings-container"
         div.appendChild(a)
 
         let button = document.createElement('button')
@@ -228,6 +230,7 @@ noFilterButton.addEventListener('click', function() {
         button.classList.remove('active')
     })
     sortNone.checked = 'checked'
+    currentArray = shipsWithCredits.slice(0)
     shipsWithCredits.forEach(starship => {
         createListing(starship)
     })

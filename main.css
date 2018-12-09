@@ -44,17 +44,24 @@ header h2 {
     padding: 10px;
 }
 
-main {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-gap: 10px;
-    width: 95%;
-    margin: 0 auto;
+@media only screen and (max-width: 900px) {
+    main {
+        display: grid;
+        grid-gap: 10px;
+        width: 95%;
+        margin: 0 auto;
+    }
 }
 
-/* #inventory-heading, #sort-bar, main {
-    max-width: 1085px;
-} */
+@media only screen and (min-width: 901px) {
+    main {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-gap: 10px;
+        width: 95%;
+        margin: 0 auto;
+    }
+}
 
 footer {
     background-color: #696969;
@@ -105,17 +112,33 @@ footer {
 
 /* SIDEBAR/FILTER ------------------------------- */
 
+#sidebar #no-filter {
+    margin-left: 10px;
+}
+
+#sidebar #filters-container div {
+    background-color: #e6e6e6;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#sidebar h2 {
+    font-variant: small-caps;
+    /* margin: 10px 0; */
+}
+
 #sidebar a {
     text-decoration: none;
 }
 
 #sidebar a button {
-    /* display: block; */
+    font-weight: 600;
     background-color: #fff;
     padding: 10px;
-    margin: 5px 5px;
-    /* width: 100%; */
+    margin: 5px 10px 5px 0;
     text-align: left;
+    border: 1px solid #aaa;
+
 }
 
 #sidebar a button:hover {
