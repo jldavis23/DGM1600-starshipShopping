@@ -44,6 +44,26 @@ header h2 {
     padding: 10px;
 }
 
+main {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 10px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+/* #inventory-heading, #sort-bar, main {
+    max-width: 1085px;
+} */
+
+footer {
+    background-color: #696969;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* SORT BAR ------------------------------- */
+
 #sort-bar {
     background-color: #696969;
     width: 95%;
@@ -72,18 +92,6 @@ header h2 {
     top: 4px;
     margin-right: 4px;
     display: inline-block;
-    /* display: inline-block;
-    position: relative;
-    background-color: #f1f1f1;
-    color: #666;
-    top: 3px;
-    height: 30px;
-    width: 30px;
-    border: 0;
-    border-radius: 50px;
-    cursor: pointer;     
-    margin-right: 4px;
-    outline: none; */
 }
 
 #sort-bar form label input:checked {
@@ -95,19 +103,18 @@ header h2 {
     margin-right: 10px;
 }
 
-main {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-gap: 10px;
-    width: 95%;
-    margin: 0 auto;
+/* SIDEBAR/FILTER ------------------------------- */
+
+#sidebar button {
+    display: block;
+    background-color: #fff;
+    padding: 10px;
 }
 
-footer {
-    background-color: #696969;
-    margin-top: 10px;
-    text-align: center;
+#sidebar .active {
+    background-color: #aaa;
 }
+
 
 /* STARSHIP LISTINGS ------------------------------- */
 
@@ -127,6 +134,7 @@ img {
     width: 400px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     background-color: #dadada;
+    height: 310px;
 }
 
 .card-face {
@@ -149,6 +157,7 @@ img {
 .front figcaption h2 {
     font-family: 'Chakra Petch', sans-serif;
     font-weight: 400;
+    color: #baa771;
 }
 
 .front figcaption img {

@@ -140,3 +140,92 @@ let sortBySpeed = () => {
     })
 }
 sortSpeed.addEventListener("click", sortBySpeed)
+
+// FILTERING -------------------------------------------------------------
+
+const filters = ["manufacturer", "hyperdrive_rating", "starship_class"]
+let filtersContainer = document.querySelector('#filters-container')
+
+let noFilterButton = document.querySelector('#no-filter')
+noFilterButton.classList.add('active')
+
+let filterButtonList = ['no-filter']
+
+const filterShips = (filter, str) => {
+    currentArray = shipsWithCredits.filter(starship => starship[filter].includes(str) === true)
+    console.log(currentArray)
+    removeListings()
+    sortNone.checked = 'checked'
+    currentArray.forEach(starship => {
+        createListing(starship)
+    })
+    filterButtonList.forEach(buttonid => {
+        let button = document.getElementById(buttonid) //Used .getElementById here because I have several ids with periods in them, so .querySelector with a string template literal would not have worked.
+        button.classList.remove('active')
+    })
+
+    let button = document.getElementById(str.replace(/\s+/g, '-')) //see comment above
+    button.classList.add('active')
+}
+
+//Creates the filter buttons
+filters.forEach(filter => {
+    let div = document.createElement('div')
+    filtersContainer.appendChild(div)
+    let h1 = document.createElement('h1')
+    h1.textContent = filter
+    div.appendChild(h1)
+
+    const createFilters = (filter, str) => {
+        let button = document.createElement('button')
+        button.id = `${str.replace(/\s+/g, '-')}`
+        button.textContent = `${str}`
+        div.appendChild(button)
+        
+        usedFilters.push(str)
+        filterButtonList.push(button.id)
+
+        button.addEventListener('click', function() {filterShips(filter, str)} )
+    }
+
+    let usedFilters = []
+
+    shipsWithCredits.forEach(starship => {
+        if (starship[filter].includes(',') === true) {
+            let first = starship[filter].slice(0, starship[filter].indexOf(','))
+            let second = starship[filter].slice(starship[filter].indexOf(',') + 2)
+            if (usedFilters.includes(first)) {
+                if (usedFilters.includes(second)) {
+                    //nothing
+                } else {
+                    createFilters(filter, second)
+                }
+            } else {
+                createFilters(filter, first)
+            }
+        } else {
+            if (usedFilters.includes(starship[filter]) === true) {
+                //nothing
+            } else {
+                createFilters(filter, starship[filter])
+            }
+        }
+    })
+})
+
+noFilterButton.addEventListener('click', function() {
+    removeListings()
+    filterButtonList.forEach(buttonid => {
+        let button = document.getElementById(buttonid)
+        button.classList.remove('active')
+    })
+    sortNone.checked = 'checked'
+    shipsWithCredits.forEach(starship => {
+        createListing(starship)
+    })
+    noFilterButton.classList.add('active')
+})
+
+
+// shipsWithCredits.forEach(ship => {console.log(ship.manufacturer)})
+

@@ -297,7 +297,7 @@ export const starships = [
     {
         "name": "B-wing",
         "model": "A/SF-01 B-wing starfighter",
-        "manufacturer": "Slayn & Korpil",
+        "manufacturer": "Slayn and Korpil",
         "cost_in_credits": "220000",
         "length": "16.9",
         "max_atmosphering_speed": "950",
@@ -706,7 +706,7 @@ export const starships = [
         "consumables": "2 years",
         "hyperdrive_rating": "1.0",
         "MGLT": "unknown",
-        "starship_class": "star destroyer",
+        "starship_class": "Star Destroyer",
         "pilots": [],
         "films": [
             "https://swapi.co/api/films/6/"
@@ -753,7 +753,7 @@ export const starships = [
         "consumables": "2 days",
         "hyperdrive_rating": "1.0",
         "MGLT": "unknown",
-        "starship_class": "starfighter",
+        "starship_class": "Starfighter",
         "pilots": [
             "https://swapi.co/api/people/10/",
             "https://swapi.co/api/people/11/"
@@ -778,7 +778,7 @@ export const starships = [
         "consumables": "5 days",
         "hyperdrive_rating": "1.0",
         "MGLT": "100",
-        "starship_class": "starfighter",
+        "starship_class": "Starfighter",
         "pilots": [],
         "films": [
             "https://swapi.co/api/films/6/"
@@ -800,7 +800,7 @@ export const starships = [
         "consumables": "7 days",
         "hyperdrive_rating": "6",
         "MGLT": "unknown",
-        "starship_class": "starfighter",
+        "starship_class": "Starfighter",
         "pilots": [
             "https://swapi.co/api/people/10/",
             "https://swapi.co/api/people/79/"
@@ -825,7 +825,7 @@ export const starships = [
         "consumables": "15 hours",
         "hyperdrive_rating": "1.0",
         "MGLT": "unknown",
-        "starship_class": "starfighter",
+        "starship_class": "Starfighter",
         "pilots": [],
         "films": [
             "https://swapi.co/api/films/6/"
