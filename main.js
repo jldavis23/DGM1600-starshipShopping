@@ -95,6 +95,59 @@ let credits = 500000
 let creditDisplay = document.querySelector('#credits')
 creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
 
+// TOP PICKS -------------------------------------------------------------
+
+//Reducing
+let mostCargoCapacity = shipsWithCredits.filter(starship => starship.cargo_capacity !== "unknown").reduce((mostCargo, starship) => {
+    return (parseInt(mostCargo.cargo_capacity) || 0) > parseInt(starship.cargo_capacity) ? mostCargo : starship
+}, {})
+
+let fastestStarship = shipsWithCredits.filter(starship => starship.hyperdrive_rating !== "unknown").reduce((fastest, starship) => {
+    return (parseInt(fastest.hyperdrive_rating) || 0) < parseInt(starship.hyperdrive_rating) ?
+    fastest : starship
+}, {})
+
+let topPicksList = [[mostCargoCapacity, 'cargo_capacity', 'Most Cargo Capacity', 'metric tons'], [fastestStarship, 'hyperdrive_rating', 'Fastest in Hyperdrive'], [shipsWithCredits[3], 'model', 'Most Popular']]
+let topPicksContainer = document.querySelector('#top-picks-container')
+
+
+//Creates the top picks cards
+const createTopPicks = (starship, property, str, unit) => {
+    let fig = document.createElement('figure')
+    topPicksContainer.appendChild(fig)
+
+    let title = document.createElement('h1')
+    title.textContent = str
+    fig.appendChild(title)
+
+    let img = document.createElement('img')
+    img.src = img.src = `images/${starship.id}.jpg`
+    fig.appendChild(img)
+
+    let cap = document.createElement('figcaption')
+    fig.appendChild(cap)
+
+    let name = document.createElement('h2')
+    name.textContent = starship['name'].toUpperCase()
+    cap.appendChild(name)
+
+    let caption = document.createElement('p')
+    if (unit === undefined) {
+        caption.textContent = `${property.replace(/_/g, " ")}: ${starship[property]}`
+    } else {
+        caption.textContent = `${numberWithCommas(property.replace(/_/g, " "))}: ${starship[property]} ${unit}`
+    }
+    cap.appendChild(caption)
+
+    let cost = document.createElement('p')
+    cost.textContent = `${numberWithCommas(starship.cost_in_credits)} credits`
+    cap.appendChild(cost)
+}
+
+topPicksList.forEach(pick => {
+    createTopPicks(pick[0], pick[1], pick[2], pick[3])
+})
+
 // SORTING -------------------------------------------------------------
 
 let sortNone = document.querySelector('#sort-none')
@@ -155,7 +208,6 @@ let filterButtonList = ['no-filter']
 
 const filterShips = (filter, str) => {
     currentArray = shipsWithCredits.filter(starship => starship[filter].includes(str) === true)
-    console.log(currentArray)
     removeListings()
     sortNone.checked = 'checked'
     currentArray.forEach(starship => {
@@ -236,4 +288,3 @@ noFilterButton.addEventListener('click', function() {
     })
     noFilterButton.classList.add('active')
 })
-

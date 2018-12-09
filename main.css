@@ -69,6 +69,66 @@ footer {
     text-align: center;
 }
 
+/* TOP PICKS ------------------------------- */
+
+#top-picks {
+    width: 95%;
+    margin: 15px auto 25px auto;
+    background-color: #696969;
+    padding: 20px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    border-radius: 2px;
+}
+
+#top-picks h1 {
+    color: #fff;
+    text-align: center;
+}
+
+#top-picks-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+#top-picks-container figure {
+    margin: 20px 0;
+    width: 300px;
+    border-radius: 5px;
+}
+
+#top-picks-container figure h1 {
+    font-size: 20px;
+    text-align: center;
+    background-color: #baa771;
+    padding: 5px;
+    border-radius: 5px 5px 0 0;
+    color: #000;
+}
+
+#top-picks-container figure img {
+    width: 100%; 
+}
+
+#top-picks-container figure figcaption {
+    padding: 10px;
+    font-weight: 400;
+    background-color: #eeeeee;
+    border-radius: 0 0 5px 5px;
+}
+
+#top-picks-container figure figcaption h2 {
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+}
+
+#top-picks-container figure figcaption p {
+    font-size: 13px;
+    margin: 4px 0;
+}
+
+
 /* SORT BAR ------------------------------- */
 
 #sort-bar {
@@ -159,7 +219,7 @@ footer {
 
 /* STARSHIP LISTINGS ------------------------------- */
 
-img {
+#starship-listings-container img {
     width: 400px;
     height: 225px;
 }
