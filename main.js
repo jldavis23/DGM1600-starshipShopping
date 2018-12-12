@@ -5,12 +5,18 @@ let starshipListingsContainer = document.querySelector('#starship-listings-conta
 let propertiesOrder = ['model', 'manufacturer', 'length', 'max_atmosphering_speed', 'crew', 'passengers', 'cargo_capacity', 'consumables', 'hyperdrive_rating', 'MGLT', 'starship_class']
 let currentArray = shipsWithCredits.slice(0)
 
-// MAIN FUNCTIONS -------------------------------------------------------------
-
 //Puts commas in a number (I adapted this function from another source)
 let numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+// CREDITS -------------------------------------------------------------
+
+let credits = 500000
+let creditDisplay = document.querySelector('#credits')
+creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
+
+// MAIN FUNCTIONS -------------------------------------------------------------
 
 // Gives each starship an id (used for adding images)
 shipsWithCredits.forEach(starship => {
@@ -30,7 +36,10 @@ let removeListings = () => {
 
 let createListing = (starship) => {
     let starshipListing = document.createElement('div')
-    starshipListing.className = "starship-listing"
+    starshipListing.classList.add("starship-listing")
+    if (starship.usercreated === true) {
+        starshipListing.classList.add('usercreated')
+    }
     starshipListingsContainer.appendChild(starshipListing)
 
     //Creates main card
@@ -70,7 +79,7 @@ let createListing = (starship) => {
         if (property === "length") {
             propValue.textContent = `${numberWithCommas(starship[property])} meters`
         } else if (property === "max_atmosphering_speed") {
-            propValue.textContent = `${numberWithCommas(starship[property])} km/h`
+            propValue.textContent = `${numberWithCommas(starship[property])} kph`
         } else if (property === "cargo_capacity") {
             propValue.textContent = `${numberWithCommas(starship[property])} metric tons`
         } else {
@@ -79,20 +88,26 @@ let createListing = (starship) => {
         ul.appendChild(propValue)
     })
 
-    //creates add to cart button
+    //creates buy button
     let button = document.createElement('button')
     button.className = "add-to-cart-button"
-    button.textContent = "Add to Cart"
+    button.textContent = "Buy"
     back.appendChild(button)
+
+    button.addEventListener('click', () => {
+        if (credits > starship.cost_in_credits) {
+            alert("Congrats! You bought a starship!")
+            credits = credits - parseInt(starship.cost_in_credits)
+            creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
+        } else {
+            alert("Sorry, you do not have enough credits to purhcase this item")
+        }
+    })
 }
 
 shipsWithCredits.forEach(starship => {createListing(starship)})
 
-// CREDITS -------------------------------------------------------------
 
-let credits = 500000
-let creditDisplay = document.querySelector('#credits')
-creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
 
 // TOP PICKS -------------------------------------------------------------
 
@@ -101,12 +116,12 @@ let mostCargoCapacity = shipsWithCredits.filter(starship => starship.cargo_capac
     return (parseInt(mostCargo.cargo_capacity) || 0) > parseInt(starship.cargo_capacity) ? mostCargo : starship
 }, {})
 
-let fastestStarship = shipsWithCredits.filter(starship => starship.hyperdrive_rating !== "unknown").reduce((fastest, starship) => {
-    return (parseInt(fastest.hyperdrive_rating) || 0) < parseInt(starship.hyperdrive_rating) ?
+let fastestStarship = shipsWithCredits.filter(starship => starship.max_atmosphering_speed !== "unknown").filter(starship => starship.max_atmosphering_speed !== "n/a").reduce((fastest, starship) => {
+    return (parseInt(fastest.max_atmosphering_speed) || 0) > parseInt(starship.max_atmosphering_speed) ?
     fastest : starship
 }, {})
 
-let topPicksList = [[mostCargoCapacity, 'cargo_capacity', 'Most Cargo Capacity', 'metric tons'], [fastestStarship, 'hyperdrive_rating', 'Fastest in Hyperdrive'], [shipsWithCredits[3], 'model', 'Most Popular']]
+let topPicksList = [[mostCargoCapacity, 'cargo_capacity', 'Most Cargo Capacity', 'metric tons'], [fastestStarship, 'max_atmosphering_speed', 'Fastest in Atmosphere', 'kph'], [shipsWithCredits[3], 'model', 'Most Popular']]
 let topPicksContainer = document.querySelector('#top-picks-container')
 
 
@@ -281,7 +296,7 @@ createFilterButtons()
 
 
 //When None button is clicked, all filters and sorting reset
-noFilterButton.addEventListener('click', function() {
+const sortingReset = () => {
     removeListings()
     filterButtonList.forEach(buttonid => {
         let button = document.getElementById(buttonid)
@@ -293,7 +308,9 @@ noFilterButton.addEventListener('click', function() {
         createListing(starship)
     })
     noFilterButton.classList.add('active')
-})
+}
+
+noFilterButton.addEventListener('click', sortingReset)
 
 // SELLING STARSHIPS -------------------------------------------------------------
 let submitButton = document.querySelector('#submit')
@@ -325,6 +342,7 @@ class Starship {
         this.hyperdrive_rating = hyperdrive_rating
         this.MGLT = MGLT
         this.starship_class = starship_class
+        this.usercreated = true;
     }
 }
 
@@ -340,8 +358,8 @@ submitButton.addEventListener('click', () => {
         let userStarship = new Starship(sellName.value, sellModel.value, sellCost.value, modelStarship.id, modelStarship.manufacturer, modelStarship['length'], modelStarship.max_atmosphering_speed, modelStarship.crew, modelStarship.passengers, modelStarship.cargo_capacity, modelStarship.consumables, modelStarship.hyperdrive_rating, modelStarship.MGLT, modelStarship.starship_class)
         sellName.value = ""
         sellCost.value = ""
-        currentArray.push(userStarship)
-        shipsWithCredits.push(userStarship)
+        currentArray.unshift(userStarship)
+        shipsWithCredits.unshift(userStarship)
         removeListings()
         currentArray.forEach(starship => {
             createListing(starship)
@@ -351,5 +369,8 @@ submitButton.addEventListener('click', () => {
             filtersContainer.removeChild(filtersContainer.firstChild);
         }
         createFilterButtons()
+        sortingReset()
+        credits = credits + parseInt(userStarship.cost_in_credits)
+        creditDisplay.textContent = `Credits: ${numberWithCommas(credits)}`
     }
 })

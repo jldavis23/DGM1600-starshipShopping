@@ -151,6 +151,7 @@ footer {
 
 #top-picks-container figure img {
     width: 100%; 
+    height: 170px;
 }
 
 #top-picks-container figure figcaption {
@@ -274,13 +275,16 @@ footer {
 }
 
 .starship-listing {
-    flex-basis: 0;
     position: relative;
     margin: 10px;
     width: 400px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     background-color: #dadada;
     height: 310px;
+}
+
+.usercreated {
+    background-color: #1d6696;
 }
 
 .card-face {
